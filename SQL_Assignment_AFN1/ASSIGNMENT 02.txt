@@ -1,0 +1,115 @@
+1:
+
+SELECT EmployeeName
+FROM employee
+WHERE DepartmentID = 1;
+
+2:
+
+SELECT ItemName
+FROM sale
+NATURAL JOIN item
+NATURAL JOIN department
+WHERE DepartmentFloor = 2
+GROUP BY ItemName
+HAVING COUNT(*) >= 2;
+
+3:
+
+SELECT y.DepartmentName
+FROM
+    (SELECT DepartmentName, AVG(EmployeeSalary) X
+    FROM employee
+    NATURAL JOIN department
+    GROUP BY DepartmentID) y
+WHERE y.x > 25000;
+
+4:
+
+SELECT DISTINCT M.EmployeeID, M.EmployeeName
+FROM Employee E, Employee M
+WHERE E.EmployeeID = M.BossID
+AND M.EmployeeSalary > E.EmployeeSalary;
+
+5:
+
+SELECT y.Average
+FROM
+    (SELECT DepartmentName, AVG(EmployeeSalary) Average
+    FROM employee
+    NATURAL JOIN department
+	GROUP BY DepartmentID) y
+WHERE y.DepartmentName = 'Clothes';
+
+6:
+
+SELECT x.N Name, x.Salary
+FROM
+    (SELECT m.EmployeeName N, m.EmployeeSalary Salary, COUNT(*) y
+    FROM employee e
+    JOIN employee m ON e.BossID = m.EmployeeID
+    GROUP BY m.EmployeeID) x
+WHERE x.y > 2;
+
+7:
+
+SELECT DISTINCT SupplierID, SupplierName 
+FROM item
+NATURAL JOIN delivery
+NATURAL JOIN supplier
+WHERE ItemName = 'Compass';
+
+8:
+
+SELECT M.EmployeeName, M.EmployeeSalary
+FROM employee E
+JOIN employee M
+WHERE E.BossID = M.EmployeeID
+AND E.EmployeeName = 'Clare';
+
+9:
+
+SELECT EmployeeName
+FROM employee
+WHERE BossID = 
+	(SELECT employeeID
+    FROM employee
+    WHERE employeename = 'Todd');
+
+10:
+
+SELECT DepartmentName
+FROM department
+WHERE DepartmentID not IN 
+	(SELECT DepartmentID
+    FROM Sale
+    NATURAL JOIN item
+    WHERE ItemName = 'Geo positioning system');
+
+11:
+
+SELECT ItemID, SUM(SaleQTY) 'Total Quantity'
+FROM item
+NATURAL JOIN sale
+NATURAL JOIN department
+WHERE DepartmentFloor = 2
+GROUP BY ItemID;
+
+12:
+
+SELECT EmployeeID, EmployeeName
+FROM employee
+WHERE EmployeeSalary = 
+	(SELECT MIN(EmployeeSalary)
+    FROM employee);
+
+13:
+
+
+
+14:
+
+
+
+15:
+
